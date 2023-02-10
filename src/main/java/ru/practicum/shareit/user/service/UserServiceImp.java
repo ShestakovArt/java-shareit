@@ -17,9 +17,10 @@ import java.util.stream.Collectors;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class UserServiceImp implements UserService{
+public class UserServiceImp implements UserService {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
+
     @Override
     public Collection<UserDto> getAllUsers() {
         return userRepository.getAllUsers().stream()

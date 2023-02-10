@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 
 @Component
 @Slf4j
-public class ItemRepositoryImp implements ItemRepository{
+public class ItemRepositoryImp implements ItemRepository {
     private final Map<Integer, Item> items = new HashMap<>();
     private static Integer id = 1;
 

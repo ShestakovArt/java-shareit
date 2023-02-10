@@ -13,9 +13,10 @@ import java.util.Map;
 @Slf4j
 @Repository
 @RequiredArgsConstructor
-public class UserRepositoryImp implements UserRepository{
+public class UserRepositoryImp implements UserRepository {
     private final Map<Integer, User> users = new HashMap<>();
     private static Integer id = 1;
+
     @Override
     public Collection<User> getAllUsers() {
         log.info("Запрос списка пользователей");
@@ -52,7 +53,7 @@ public class UserRepositoryImp implements UserRepository{
         return users.get(userId);
     }
 
-    private void findUserToId(Integer userId){
+    private void findUserToId(Integer userId) {
         if (!users.containsKey(userId)) {
             throw new NotFoundException(String.format("Пользователь с id = %d не найден", userId));
         }
