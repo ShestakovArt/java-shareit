@@ -2,9 +2,8 @@ package ru.practicum.shareit.user.repository;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
-import ru.practicum.shareit.exception.UserNotFoundException;
+import ru.practicum.shareit.exception.NotFoundException;
 import ru.practicum.shareit.user.model.User;
 
 import java.util.Collection;
@@ -55,7 +54,7 @@ public class UserRepositoryImp implements UserRepository{
 
     private void findUserToId(Integer userId){
         if (!users.containsKey(userId)) {
-            throw new UserNotFoundException(String.format("Пользователь с id = %d не найден", userId));
+            throw new NotFoundException(String.format("Пользователь с id = %d не найден", userId));
         }
     }
 }

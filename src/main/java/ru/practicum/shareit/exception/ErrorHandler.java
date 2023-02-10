@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class ErrorHandler {
     @ExceptionHandler
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ErrorResponse handleUserNotFoundException(final UserNotFoundException e) {
-        log.error("Нет пользователя с таким ID");
+    public ErrorResponse handleNotFoundException(final NotFoundException e) {
+        log.error("Нет объект с таким ID");
         return new ErrorResponse(
-                "Нет пользователя с таким ID"
+                "Нет объект с таким ID"
         );
     }
 
