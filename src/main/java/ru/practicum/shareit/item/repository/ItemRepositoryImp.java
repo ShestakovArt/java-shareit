@@ -41,7 +41,7 @@ public class ItemRepositoryImp implements ItemRepository {
 
     @Override
     public Item createItem(Item item) {
-        item.setId(id++);
+        item.setId(generateId());
         items.put(item.getId(), item);
         log.info("Создан новй item с id = {}", item.getId());
         return item;
@@ -52,5 +52,9 @@ public class ItemRepositoryImp implements ItemRepository {
         items.put(item.getId(), item);
         log.info("Item с id {} обновлен", item.getId());
         return item;
+    }
+
+    static Integer generateId() {
+        return id++;
     }
 }

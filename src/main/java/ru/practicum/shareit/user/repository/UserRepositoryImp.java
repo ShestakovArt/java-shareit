@@ -33,7 +33,7 @@ public class UserRepositoryImp implements UserRepository {
 
     @Override
     public User create(User user) {
-        user.setId(id++);
+        user.setId(generateId());
         users.put(user.getId(), user);
         log.info("Создан пользователь с id = {}", user.getId());
         return user;
@@ -57,5 +57,9 @@ public class UserRepositoryImp implements UserRepository {
         if (!users.containsKey(userId)) {
             throw new NotFoundException(String.format("Пользователь с id = %d не найден", userId));
         }
+    }
+
+    static Integer generateId() {
+        return id++;
     }
 }
