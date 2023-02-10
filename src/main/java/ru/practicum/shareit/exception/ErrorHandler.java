@@ -12,18 +12,17 @@ public class ErrorHandler {
     @ExceptionHandler
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ErrorResponse handleNotFoundException(final NotFoundException e) {
-        log.error("Нет объект с таким ID");
+        log.error(e.getMessage());
         return new ErrorResponse(
-                "Нет объект с таким ID"
+                e.getMessage()
         );
     }
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.CONFLICT)
     public ErrorResponse handleUserExistsException(final UserExistsException e) {
-        log.error("Конфликт, пользователь уже существует");
-        return new ErrorResponse(
-                "Конфликт, пользователь уже существует"
+        log.error("Конфликт: {}", e.getMessage());
+        return new ErrorResponse(String.format("Конфликт: '%s'", e.getMessage())
         );
     }
 
