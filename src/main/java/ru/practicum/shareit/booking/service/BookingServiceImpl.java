@@ -10,6 +10,7 @@ import ru.practicum.shareit.booking.state.BookingState;
 import ru.practicum.shareit.booking.mapper.BookingMapper;
 import ru.practicum.shareit.booking.model.Booking;
 import ru.practicum.shareit.booking.repository.BookingRepository;
+import ru.practicum.shareit.exception.BadRequestException;
 import ru.practicum.shareit.exception.NotFoundException;
 import ru.practicum.shareit.exception.ValidationException;
 import ru.practicum.shareit.item.dto.ItemDto;
@@ -81,8 +82,7 @@ public class BookingServiceImpl implements BookingService {
                 return bookingRepository.findUserBookingByStatus(bookerId, bookingState)
                         .stream().map(BookingMapper::bookingToBookingDto).collect(Collectors.toList());
             default:
-                throw new NotFoundException(String.format(
-                        "Unknown state: %s", bookingState));
+                throw new BadRequestException("Unknown state: UNSUPPORTED_STATUS");
         }
     }
     @Override
@@ -106,8 +106,7 @@ public class BookingServiceImpl implements BookingService {
                 return bookingRepository.findItemBookingByStatus(ownerId, bookingState)
                         .stream().map(BookingMapper::bookingToBookingDto).collect(Collectors.toList());
             default:
-                throw new NotFoundException(String.format(
-                        "Unknown state: %s", bookingState));
+                throw new BadRequestException("Unknown state: UNSUPPORTED_STATUS");
         }
     }
 
@@ -127,13 +126,13 @@ public class BookingServiceImpl implements BookingService {
 
     private void checkAvailableItem(ItemDto itemDto) {
         if (itemDto.getAvailable().equals(false)) {
-            throw new ValidationException(String.format("Вещь %s недоступна для бронирования", itemDto));
+            throw new BadRequestException(String.format("Вещь %s недоступна для бронирования", itemDto));
         }
     }
 
     private void checkDate(BookingCreateDto bookingCreateDto) {
         if (bookingCreateDto.getEnd().isBefore(bookingCreateDto.getStart())) {
-            throw new ValidationException(String.format(
+            throw new BadRequestException(String.format(
                     "Ошибка валидации даты у бронирования = %s", bookingCreateDto));
         }
     }
@@ -154,7 +153,7 @@ public class BookingServiceImpl implements BookingService {
 
     private void checkApprove(Booking booking) {
         if (booking.getStatus().equals(APPROVED)) {
-            throw new ValidationException(String.format(
+            throw new BadRequestException(String.format(
                     "Статус APPROVED уже назначен на бронирование  %s", booking));
         }
     }

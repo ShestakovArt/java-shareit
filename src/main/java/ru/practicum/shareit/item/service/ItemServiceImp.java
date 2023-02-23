@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.shareit.booking.dto.BookingDtoForItem;
 import ru.practicum.shareit.booking.model.Booking;
 import ru.practicum.shareit.booking.repository.BookingRepository;
+import ru.practicum.shareit.exception.BadRequestException;
 import ru.practicum.shareit.exception.NotFoundException;
 import ru.practicum.shareit.exception.ValidationException;
 import ru.practicum.shareit.item.dto.CommentDto;
@@ -181,7 +182,7 @@ public class ItemServiceImp implements ItemService {
     private void checkUserBooking(Long ownerId, Long itemId) {
         if (bookingRepository.findUserBookingItem(ownerId, LocalDateTime.now()).stream()
                 .noneMatch(booking -> booking.getItem().getId().equals(itemId))) {
-            throw new ValidationException(String.format(
+            throw new BadRequestException(String.format(
                     "Пользователь с id: %s не брал в аренду вещь с id: %s", ownerId, itemId));
         }
     }

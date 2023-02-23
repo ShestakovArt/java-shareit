@@ -10,11 +10,11 @@ import javax.validation.constraints.NotNull;
 
 @Getter
 @Setter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@JsonInclude(JsonInclude.Include.NON_NULL)
-@FieldDefaults(level = AccessLevel.PRIVATE)
 @EqualsAndHashCode(of = "id")
+@FieldDefaults(level = AccessLevel.PRIVATE)
 @ToString
 @Entity
 @Table(name = "items")

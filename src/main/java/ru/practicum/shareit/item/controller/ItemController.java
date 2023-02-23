@@ -7,6 +7,7 @@ import ru.practicum.shareit.item.dto.CommentDto;
 import ru.practicum.shareit.item.dto.ItemDto;
 import ru.practicum.shareit.item.dto.ItemDtoGetResponse;
 import ru.practicum.shareit.item.service.ItemService;
+import ru.practicum.shareit.markers.Marker;
 
 import javax.validation.Valid;
 import java.util.Collection;
@@ -37,21 +38,21 @@ public class ItemController {
 
     @PostMapping
     public ItemDto createItem(@RequestHeader(HEADER_USER_ID) Long ownerId,
-                              @RequestBody @Validated ItemDto itemDto) {
+                              @RequestBody @Validated(Marker.Create.class) ItemDto itemDto) {
         return itemService.createItem(itemDto, ownerId);
     }
 
     @PatchMapping(pathId)
-    public ItemDto updateItem(@PathVariable Long itemId,
+    public ItemDto updateItem(@PathVariable Long id,
                               @RequestHeader(HEADER_USER_ID) Long ownerId,
-                              @RequestBody @Validated ItemDto itemDto) {
-        return itemService.updateItem(itemDto, ownerId, itemId);
+                              @RequestBody @Validated(Marker.Update.class) ItemDto itemDto) {
+        return itemService.updateItem(itemDto, ownerId, id);
     }
 
     @PostMapping(pathId + "/comment")
     public CommentDto createComment(@RequestHeader(HEADER_USER_ID) Long ownerId,
-                                    @PathVariable Long itemId,
-                                    @RequestBody @Validated CommentDto commentDto) {
-        return itemService.createComment(itemId, ownerId, commentDto);
+                                    @PathVariable Long id,
+                                    @RequestBody @Validated(Marker.Create.class) CommentDto commentDto) {
+        return itemService.createComment(id, ownerId, commentDto);
     }
 }
