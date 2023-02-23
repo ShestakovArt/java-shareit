@@ -12,13 +12,12 @@ import javax.validation.constraints.NotNull;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class ItemDto {
-    Integer id;
+    Long id;
     @NotBlank(message = "Имя не может быть пустым")
     String name;
     @NotBlank(message = "Описание не может быть пустым")
     String description;
     @NotNull(message = "Статус не может быть пустым")
     Boolean available;
-    Integer owner;
-    ItemRequest request;
+    Long owner;
 }

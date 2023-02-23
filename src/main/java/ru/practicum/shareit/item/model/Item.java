@@ -3,8 +3,8 @@ package ru.practicum.shareit.item.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-import ru.practicum.shareit.request.ItemRequest;
 
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -14,14 +14,23 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@EqualsAndHashCode(of = "id")
+@ToString
+@Entity
+@Table(name = "items")
 public class Item {
-    Integer id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    Long id;
     @NotBlank(message = "Имя не может быть пустым")
+    @Column
     String name;
     @NotBlank(message = "Описание не может быть пустым")
+    @Column
     String description;
     @NotNull(message = "Статус не может быть пустым")
+    @Column(name = "is_available")
     Boolean available;
-    Integer owner;
-    ItemRequest request;
+    @Column(name = "owner_id")
+    Long owner;
 }
