@@ -1,9 +1,7 @@
 package ru.practicum.shareit.booking.model;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 import ru.practicum.shareit.booking.state.BookingState;
 import ru.practicum.shareit.item.model.Item;
 import ru.practicum.shareit.user.model.User;
@@ -15,28 +13,29 @@ import java.time.LocalDateTime;
 @Getter
 @ToString
 @EqualsAndHashCode(of = "id")
+@FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
 @Table(name = "bookings")
 public class Booking {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    Long id;
 
     @Column(name = "start_date")
-    private LocalDateTime start;
+    LocalDateTime start;
 
     @Column(name = "end_date")
-    private LocalDateTime end;
+    LocalDateTime end;
 
     @ManyToOne
     @JoinColumn(name = "item_id", referencedColumnName = "id")
-    private Item item;
+    Item item;
 
     @ManyToOne
     @JoinColumn(name = "booker_id", referencedColumnName = "id")
-    private User booker;
+    User booker;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private BookingState status;
+    BookingState status;
 }

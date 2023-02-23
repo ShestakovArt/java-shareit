@@ -1,6 +1,7 @@
 package ru.practicum.shareit.item.dto;
 
 import lombok.*;
+import lombok.experimental.FieldDefaults;
 
 @Getter
 @Setter
@@ -8,7 +9,8 @@ import lombok.*;
 @NoArgsConstructor
 @ToString
 @EqualsAndHashCode(of = "id")
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class ItemDtoShort {
-    private Long id;
-    private String name;
+    Long id;
+    String name;
 }
