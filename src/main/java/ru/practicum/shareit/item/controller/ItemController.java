@@ -9,7 +9,6 @@ import ru.practicum.shareit.item.dto.ItemDtoGetResponse;
 import ru.practicum.shareit.item.service.ItemService;
 import ru.practicum.shareit.markers.Marker;
 
-import javax.validation.Valid;
 import java.util.Collection;
 
 @RestController
