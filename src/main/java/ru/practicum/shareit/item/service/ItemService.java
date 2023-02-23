@@ -10,6 +10,7 @@ public interface ItemService {
     Collection<ItemDtoGetResponse> getAllForOwnerId(Long ownerId);
 
     ItemDto getItemById(Long itemId);
+
     ItemDtoGetResponse getItemByIdForBooking(Long itemId, Long ownerId);
 
     Collection<ItemDto> findItems(String text);
@@ -17,5 +18,6 @@ public interface ItemService {
     ItemDto createItem(ItemDto itemDto, Long ownerId);
 
     ItemDto updateItem(ItemDto itemDto, Long ownerId, Long itemId);
+
     CommentDto createComment(Long itemId, Long ownerId, CommentDto commentDto);
 }

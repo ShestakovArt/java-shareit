@@ -84,6 +84,7 @@ public class BookingServiceImpl implements BookingService {
                 throw new BadRequestException("Unknown state: UNSUPPORTED_STATUS");
         }
     }
+
     @Override
     public List<BookingDto> getItemByStateParam(Long ownerId, BookingState bookingState) {
         userService.getUserById(ownerId);

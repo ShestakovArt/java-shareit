@@ -40,8 +40,6 @@ public class ItemServiceImp implements ItemService {
     private final CommentRepository commentRepository;
     private final BookingRepository bookingRepository;
 
-    public final LocalDateTime CURRENT_DATA_TIME = LocalDateTime.now();
-
     @Override
     public List<ItemDtoGetResponse> getAllForOwnerId(Long ownerId) {
         List<Item> items = itemRepository
@@ -96,7 +94,7 @@ public class ItemServiceImp implements ItemService {
     @Transactional
     @Override
     public CommentDto createComment(Long itemId, Long ownerId, CommentDto commentDto) {
-        commentDto.setCreated(CURRENT_DATA_TIME);
+        commentDto.setCreated(LocalDateTime.now());
         User author = userMapper.mapToUser(userService.getUserById(ownerId));
         Item item = findItemById(itemId);
         checkUserBooking(ownerId, itemId);
