@@ -1,22 +1,26 @@
 package ru.practicum.shareit.user.model;
 
-import lombok.AccessLevel;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
+import javax.persistence.*;
 
-
-@Data
-@EqualsAndHashCode(of = "id")
+@Entity
+@Table(name = "users")
+@Getter
+@Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class User {
-    Integer id;
-    @NotBlank(message = "Имя не может быть пустым")
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    Long id;
+
+    @Column(length = 50, nullable = false)
     String name;
-    @Email(message = "Email должен содержать '@'")
-    @NotBlank(message = "Email не может быть пустым")
+
+    @Column(unique = true, length = 50, nullable = false)
     String email;
 }

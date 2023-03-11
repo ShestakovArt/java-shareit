@@ -3,22 +3,29 @@ package ru.practicum.shareit.item.dto;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-import ru.practicum.shareit.request.ItemRequest;
+import ru.practicum.shareit.markers.Marker;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-@Data
+@Getter
+@Setter
 @JsonInclude(JsonInclude.Include.NON_NULL)
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
+@EqualsAndHashCode(of = "id")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class ItemDto {
-    Integer id;
-    @NotBlank(message = "Имя не может быть пустым")
+    Long id;
+    @NotBlank(groups = {Marker.Create.class},
+            message = "Имя не может быть пустым")
     String name;
-    @NotBlank(message = "Описание не может быть пустым")
+    @NotBlank(groups = {Marker.Create.class},
+            message = "Описание не может быть пустым")
     String description;
-    @NotNull(message = "Статус не может быть пустым")
+    @NotNull(groups = {Marker.Create.class},
+            message = "Статус не может быть пустым")
     Boolean available;
-    Integer owner;
-    ItemRequest request;
+    Long owner;
 }

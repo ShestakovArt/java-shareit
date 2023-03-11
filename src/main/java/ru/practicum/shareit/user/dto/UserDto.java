@@ -1,18 +1,29 @@
 package ru.practicum.shareit.user.dto;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
+import ru.practicum.shareit.markers.Marker;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
-@Data
+@Getter
+@Setter
+@ToString
+@NoArgsConstructor
+@AllArgsConstructor
 @EqualsAndHashCode(of = "id")
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class UserDto {
-    Integer id;
-    @NotBlank(message = "Имя не может быть пустым")
+    Long id;
+    @NotBlank(groups = {Marker.Create.class},
+            message = "Имя пользователя не может быть пустым")
     String name;
-    @Email(message = "Email должен содержать '@'")
-    @NotBlank(message = "Email не может быть пустым")
+    @NotBlank(groups = {Marker.Create.class},
+            message = "Email не может быть пустым")
+    @Email(groups = {Marker.Create.class, Marker.Update.class},
+            message = "Указан некорректный email")
     String email;
 }
